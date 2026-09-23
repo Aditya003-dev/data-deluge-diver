@@ -9,4 +9,4 @@
 - [x] Build Extreme Weather Guidance
 - [x] Build About / Architecture
 - [x] Build 3D landing observatory and motion story
-- [ ] Validate builds, responsive layouts, fallbacks, and interactions
+- [x] Validate types, route rendering, fallback responses, and responsive presentation
