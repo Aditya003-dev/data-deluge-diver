@@ -30,9 +30,9 @@ export function mockBlend(region: RegionCode, variable: VariableName, lead: numb
     valid_time: "2026-09-26T06:00:00Z", lead_hours: lead, season: "sw_monsoon", regime: region === "BOB" ? "depression" : "active_monsoon",
     regime_probs: { active_monsoon: region === "KWG" ? .52 : .16, break_monsoon: .08, western_disturbance: region === "IGP" ? .42 : .05, depression: region === "BOB" ? .54 : .12, normal: region === "IGP" ? .29 : .23 },
     sources: [
-      { model: "AIFS", forecast_value: v.sources[0], weight: 0, historical_skill: .3395 },
-      { model: "GFS", forecast_value: v.sources[1], weight: .022, historical_skill: .5186 },
-      { model: "IFS", forecast_value: v.sources[2], weight: .978, historical_skill: .649 },
+      { model: "AIFS", forecast_value: v.sources[0] ?? 0, weight: 0, historical_skill: .3395 },
+      { model: "GFS", forecast_value: v.sources[1] ?? 0, weight: .022, historical_skill: .5186 },
+      { model: "IFS", forecast_value: v.sources[2] ?? 0, weight: .978, historical_skill: .649 },
     ], disagreement: variable === "precipitation" ? 6.56 : 2.84, raw_blend_value: v.raw, bias_corrected_value: v.corrected, final_value: v.corrected,
     trust: { historical_skill_component: .6461, disagreement_component: abstain ? .18 : .7376, lead_time_component: Math.max(.2, 1 - lead / 168 * .75), regime_stability_component: abstain ? .12 : .64, data_quality_component: 1, trust_score: abstain ? .31 : .5963 },
     bust_probability: abstain ? .78 : .08, bust_flag: abstain, abstain,
