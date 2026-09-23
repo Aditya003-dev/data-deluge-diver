@@ -10,14 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArchitectureRouteImport } from './routes/architecture'
+import { Route as ExtremesRouteImport } from './routes/extremes'
 import { Route as ForecastRouteImport } from './routes/forecast'
 import { Route as ReplayRouteImport } from './routes/replay'
+import { Route as VerificationRouteImport } from './routes/verification'
 import { Route as WeightsRouteImport } from './routes/weights'
 import { Route as ReplayEventIdRouteImport } from './routes/replay.$eventId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureRoute = ArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtremesRoute = ExtremesRouteImport.update({
+  id: '/extremes',
+  path: '/extremes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForecastRoute = ForecastRouteImport.update({
@@ -28,6 +41,11 @@ const ForecastRoute = ForecastRouteImport.update({
 const ReplayRoute = ReplayRouteImport.update({
   id: '/replay',
   path: '/replay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerificationRoute = VerificationRouteImport.update({
+  id: '/verification',
+  path: '/verification',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WeightsRoute = WeightsRouteImport.update({
@@ -43,39 +61,75 @@ const ReplayEventIdRoute = ReplayEventIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/architecture': typeof ArchitectureRoute
+  '/extremes': typeof ExtremesRoute
   '/forecast': typeof ForecastRoute
   '/replay': typeof ReplayRouteWithChildren
+  '/verification': typeof VerificationRoute
   '/weights': typeof WeightsRoute
   '/replay/$eventId': typeof ReplayEventIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/architecture': typeof ArchitectureRoute
+  '/extremes': typeof ExtremesRoute
   '/forecast': typeof ForecastRoute
   '/replay': typeof ReplayRouteWithChildren
+  '/verification': typeof VerificationRoute
   '/weights': typeof WeightsRoute
   '/replay/$eventId': typeof ReplayEventIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/architecture': typeof ArchitectureRoute
+  '/extremes': typeof ExtremesRoute
   '/forecast': typeof ForecastRoute
   '/replay': typeof ReplayRouteWithChildren
+  '/verification': typeof VerificationRoute
   '/weights': typeof WeightsRoute
   '/replay/$eventId': typeof ReplayEventIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forecast' | '/replay' | '/weights' | '/replay/$eventId'
+  fullPaths:
+    | '/'
+    | '/architecture'
+    | '/extremes'
+    | '/forecast'
+    | '/replay'
+    | '/verification'
+    | '/weights'
+    | '/replay/$eventId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forecast' | '/replay' | '/weights' | '/replay/$eventId'
+  to:
+    | '/'
+    | '/architecture'
+    | '/extremes'
+    | '/forecast'
+    | '/replay'
+    | '/verification'
+    | '/weights'
+    | '/replay/$eventId'
   id:
-    '__root__' | '/' | '/forecast' | '/replay' | '/weights' | '/replay/$eventId'
+    | '__root__'
+    | '/'
+    | '/architecture'
+    | '/extremes'
+    | '/forecast'
+    | '/replay'
+    | '/verification'
+    | '/weights'
+    | '/replay/$eventId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArchitectureRoute: typeof ArchitectureRoute
+  ExtremesRoute: typeof ExtremesRoute
   ForecastRoute: typeof ForecastRoute
   ReplayRoute: typeof ReplayRouteWithChildren
+  VerificationRoute: typeof VerificationRoute
   WeightsRoute: typeof WeightsRoute
 }
 
@@ -86,6 +140,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture': {
+      id: '/architecture'
+      path: '/architecture'
+      fullPath: '/architecture'
+      preLoaderRoute: typeof ArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extremes': {
+      id: '/extremes'
+      path: '/extremes'
+      fullPath: '/extremes'
+      preLoaderRoute: typeof ExtremesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forecast': {
@@ -100,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/replay'
       fullPath: '/replay'
       preLoaderRoute: typeof ReplayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verification': {
+      id: '/verification'
+      path: '/verification'
+      fullPath: '/verification'
+      preLoaderRoute: typeof VerificationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/weights': {
@@ -132,8 +207,11 @@ const ReplayRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArchitectureRoute: ArchitectureRoute,
+  ExtremesRoute: ExtremesRoute,
   ForecastRoute: ForecastRoute,
   ReplayRoute: ReplayRouteWithChildren,
+  VerificationRoute: VerificationRoute,
   WeightsRoute: WeightsRoute,
 }
 export const routeTree = rootRouteImport
