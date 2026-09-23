@@ -6,6 +6,8 @@ export class ApiError extends Error { constructor(message: string, public status
 async function request<T>(path: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, { signal: signal ?? null, headers: { Accept: "application/json" } });
   if (!response.ok) { let detail = `Request failed (${response.status})`; try { const body = await response.json(); detail = body.detail ?? detail; } catch { /* retain status */ } throw new ApiError(detail, response.status); }
+  // The same-origin gateway serves demonstration fixtures when no live backend is reachable.
+  if (response.headers.get("x-skillblend-data") === "fixture") throw new ApiError("Live backend unavailable — fixture data", 503);
   return response.json() as Promise<T>;
 }
 export const liveApi = {

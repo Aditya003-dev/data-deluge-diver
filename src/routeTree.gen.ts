@@ -17,6 +17,7 @@ import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as VerificationRouteImport } from './routes/verification'
 import { Route as WeightsRouteImport } from './routes/weights'
 import { Route as ReplayEventIdRouteImport } from './routes/replay.$eventId'
+import { Route as ApiV1SplatRouteImport } from './routes/api/v1/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const ReplayEventIdRoute = ReplayEventIdRouteImport.update({
   path: '/$eventId',
   getParentRoute: () => ReplayRoute,
 } as any)
+const ApiV1SplatRoute = ApiV1SplatRouteImport.update({
+  id: '/api/v1/$',
+  path: '/api/v1/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/verification': typeof VerificationRoute
   '/weights': typeof WeightsRoute
   '/replay/$eventId': typeof ReplayEventIdRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/verification': typeof VerificationRoute
   '/weights': typeof WeightsRoute
   '/replay/$eventId': typeof ReplayEventIdRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/verification': typeof VerificationRoute
   '/weights': typeof WeightsRoute
   '/replay/$eventId': typeof ReplayEventIdRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/verification'
     | '/weights'
     | '/replay/$eventId'
+    | '/api/v1/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/verification'
     | '/weights'
     | '/replay/$eventId'
+    | '/api/v1/$'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/verification'
     | '/weights'
     | '/replay/$eventId'
+    | '/api/v1/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ReplayRoute: typeof ReplayRouteWithChildren
   VerificationRoute: typeof VerificationRoute
   WeightsRoute: typeof WeightsRoute
+  ApiV1SplatRoute: typeof ApiV1SplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReplayEventIdRouteImport
       parentRoute: typeof ReplayRoute
     }
+    '/api/v1/$': {
+      id: '/api/v1/$'
+      path: '/api/v1/$'
+      fullPath: '/api/v1/$'
+      preLoaderRoute: typeof ApiV1SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -213,6 +233,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReplayRoute: ReplayRouteWithChildren,
   VerificationRoute: VerificationRoute,
   WeightsRoute: WeightsRoute,
+  ApiV1SplatRoute: ApiV1SplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
